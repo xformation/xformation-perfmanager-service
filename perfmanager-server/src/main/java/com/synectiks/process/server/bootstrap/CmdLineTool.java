@@ -2,6 +2,25 @@
  * */
 package com.synectiks.process.server.bootstrap;
 
+import static com.google.common.base.Strings.nullToEmpty;
+
+import java.lang.management.ManagementFactory;
+import java.nio.file.AccessDeniedException;
+import java.nio.file.Path;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.codahale.metrics.MetricRegistry;
 import com.codahale.metrics.jmx.JmxReporter;
 import com.codahale.metrics.log4j2.InstrumentedAppender;
@@ -28,6 +47,7 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 import com.google.inject.spi.Message;
+import com.synectiks.process.server.perfservice.module.PostGsJpaModule;
 import com.synectiks.process.server.plugin.BaseConfiguration;
 import com.synectiks.process.server.plugin.DocsHelper;
 import com.synectiks.process.server.plugin.Plugin;
@@ -50,24 +70,6 @@ import com.synectiks.process.server.storage.versionprobe.ElasticsearchProbeExcep
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
-import org.apache.logging.log4j.Level;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.lang.management.ManagementFactory;
-import java.nio.file.AccessDeniedException;
-import java.nio.file.Path;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import static com.google.common.base.Strings.nullToEmpty;
 
 public abstract class CmdLineTool implements CliCommand {
     static {
@@ -100,7 +102,8 @@ public abstract class CmdLineTool implements CliCommand {
     protected String commandName = "command";
 
     protected Injector injector;
-
+//    protected Injector jpaInjector;
+    
     protected CmdLineTool(BaseConfiguration configuration) {
         this(null, configuration);
     }
@@ -181,12 +184,18 @@ public abstract class CmdLineTool implements CliCommand {
         LOG.info("Running with JVM arguments: {}", Joiner.on(' ').join(arguments));
 
         injector = setupInjector(configModule, pluginBindings, binder -> binder.bind(ChainingClassLoader.class).toInstance(chainingClassLoader));
-
+        
+        // This is for JPA persistance service.
+//        jpaInjector = GuiceInjectorHolder.createJpaInjector();
+        
         if (injector == null) {
             LOG.error("Injector could not be created, exiting! (Please include the previous error messages in bug reports.)");
             System.exit(1);
         }
-
+//        if (jpaInjector == null) {
+//            LOG.error("JPA injector could not be created, exiting! (Please include the previous error messages in bug reports.)");
+//            System.exit(1);
+//        }
         // This is holding all our metrics.
         final MetricRegistry metrics = injector.getInstance(MetricRegistry.class);
 
@@ -364,7 +373,14 @@ public abstract class CmdLineTool implements CliCommand {
                     binder.bind(String.class).annotatedWith(Names.named("BootstrapCommand")).toInstance(commandName);
                 }
             });
-
+            modules.add(new PostGsJpaModule());
+//            modules.add(new Module() {
+//                @Override
+//                public void configure(Binder binder) {
+//                    binder.bind(CollectorController.class);
+//                }
+//            },new JpaPersistModule("db_manager"));
+            
             return GuiceInjectorHolder.createInjector(modules.build());
         } catch (CreationException e) {
             annotateInjectorCreationException(e);
@@ -413,3 +429,4 @@ public abstract class CmdLineTool implements CliCommand {
         return Collections.emptySet();
     }
 }
+

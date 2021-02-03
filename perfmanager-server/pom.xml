@@ -59,6 +59,63 @@
     </dependencyManagement> -->
     
     <dependencies>
+    	
+    	<!-- Guice JPA Dependencies -->
+    	
+    	<!-- Guice JPA Repositories -->
+        <!-- <dependency>
+            <groupId>com.google.code.guice-repository</groupId>
+            <artifactId>guice-repository</artifactId>
+            <version>2.1.0</version>
+        </dependency> -->
+
+        <!-- JPA provider -->
+        <dependency>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>javax.servlet-api</artifactId>
+		    <version>3.1.0</version>
+		    <!-- <scope>provided</scope> -->
+		</dependency>
+		<dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>eclipselink</artifactId>
+            <version>2.5.1</version>
+        </dependency>
+        <!-- <dependency>
+			<groupId>com.sun.jersey.contribs</groupId>
+			<artifactId>jersey-guice</artifactId>
+			<version>1.18.6</version>
+		</dependency>
+		 --> 
+		<!-- <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>4.1.1.Final</version>
+        </dependency> 
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>4.1.1.Final</version>
+        </dependency> -->
+        
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-persist</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.inject.extensions</groupId>
+            <artifactId>guice-servlet</artifactId>
+            <version>${guice.version}</version>
+        </dependency>
+        <!-- postgresql driver -->
+    	<dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.15</version>
+        </dependency>
+        <!-- Guice JPA Dependencies End-->
+        
         <dependency>
             <groupId>com.github.rvesse</groupId>
             <artifactId>airline</artifactId>

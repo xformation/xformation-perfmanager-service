@@ -152,6 +152,8 @@ public class ServerBindings extends Graylog2Module {
 
         registerRestControllerPackage("com.synectiks.process.server.rest.resources");
         registerRestControllerPackage("com.synectiks.process.server.shared.rest.resources");
+        // Register Synectiks rest controller
+        registerRestControllerPackage("com.synectiks.process.server.perfservice.rest");
     }
 
     private void bindInterfaces() {
