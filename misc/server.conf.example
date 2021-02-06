@@ -1,8 +1,8 @@
 ############################
-# PERFMANAGER CONFIGURATION FILE
+# ALERTMANAGER CONFIGURATION FILE
 ############################
 #
-# This is the Perfmanager configuration file. The file has to use ISO 8859-1/Latin-1 character encoding.
+# This is the Alertmanager configuration file. The file has to use ISO 8859-1/Latin-1 character encoding.
 # Characters that cannot be directly represented in this encoding can be written using Unicode escapes
 # as defined in https://docs.oracle.com/javase/specs/jls/se8/html/jls-3.html#jls-3.3, using the \u prefix.
 # For example, \u002c.
@@ -42,17 +42,17 @@
 # path=c:\\docs\\doc1
 #
 
-# If you are running more than one instances of Perfmanager server you have to select one of these
+# If you are running more than one instances of Alertmanager server you have to select one of these
 # instances as master. The master will perform some periodical tasks that non-masters won't perform.
 is_master = true
 
 # The auto-generated node ID will be stored in this file and read after restarts. It is a good idea
-# to use an absolute file path here if you are starting Perfmanager server from init scripts or similar.
-node_id_file = /opt/perfmanager/node/node-id
+# to use an absolute file path here if you are starting Alertmanager server from init scripts or similar.
+node_id_file = /opt/alertmanager/node/node-id
 
 # You MUST set a secret to secure/pepper the stored user passwords here. Use at least 64 characters.
 # Generate one by using for example: pwgen -N 1 -s 96
-# ATTENTION: This value must be the same on all Perfmanager nodes in the cluster.
+# ATTENTION: This value must be the same on all Alertmanager nodes in the cluster.
 # Changing this value after installation will render all user sessions and encrypted values in the database invalid. (e.g. encrypted access tokens)
 password_secret = 16MoMedLyiFXyzpylSYdKTNuNQQ6QTbRYufJE5EeouZgPeAbSTBTYYQh6wGQWki4qFhSCNGyXUoRv0F7p070rvehwUyfgI2D
 
@@ -76,12 +76,12 @@ root_password_sha2 = 8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab44
 #root_timezone = UTC
 
 # Set the bin directory here (relative or absolute)
-# This directory contains binaries that are used by the Perfmanager server.
+# This directory contains binaries that are used by the Alertmanager server.
 # Default: bin
 bin_dir = bin
 
 # Set the data directory here (relative or absolute)
-# This directory is used to store Perfmanager server state.
+# This directory is used to store Alertmanager server state.
 # Default: data
 data_dir = data
 
@@ -94,25 +94,25 @@ plugin_dir = plugin
 
 #### HTTP bind address
 #
-# The network interface used by the Perfmanager HTTP interface.
+# The network interface used by the Alertmanager HTTP interface.
 #
-# This network interface must be accessible by all Perfmanager nodes in the cluster and by all clients
-# using the Perfmanager web interface.
+# This network interface must be accessible by all Alertmanager nodes in the cluster and by all clients
+# using the Alertmanager web interface.
 #
-# If the port is omitted, Perfmanager will use port 9000 by default.
+# If the port is omitted, Alertmanager will use port 9000 by default.
 #
-# Default: 127.0.0.1:7039
-http_bind_address = 100.81.3.27:7039
-#http_bind_address = [2001:db8::1]:7039
+# Default: 127.0.0.1:7035
+http_bind_address = 127.0.0.1:7035
+#http_bind_address = [2001:db8::1]:7035
 
 #### HTTP publish URI
 #
-# The HTTP URI of this Perfmanager node which is used to communicate with the other Perfmanager nodes in the cluster and by all
-# clients using the Perfmanager web interface.
+# The HTTP URI of this Alertmanager node which is used to communicate with the other Alertmanager nodes in the cluster and by all
+# clients using the Alertmanager web interface.
 #
-# The URI will be published in the cluster discovery APIs, so that other Perfmanager nodes will be able to find and connect to this Perfmanager node.
+# The URI will be published in the cluster discovery APIs, so that other Alertmanager nodes will be able to find and connect to this Alertmanager node.
 #
-# This configuration setting has to be used if this Perfmanager node is available on another network interface than $http_bind_address,
+# This configuration setting has to be used if this Alertmanager node is available on another network interface than $http_bind_address,
 # for example if the machine has multiple network interfaces or is behind a NAT gateway.
 #
 # If $http_bind_address contains a wildcard IPv4 address (0.0.0.0), the first non-loopback IPv4 address of this machine will be used.
@@ -120,18 +120,18 @@ http_bind_address = 100.81.3.27:7039
 #
 # Default: http://$http_bind_address/
 #http_publish_uri = http://192.168.1.1:9000/
-http_publish_uri = http://100.81.3.27:7039/
+http_publish_uri = http://127.0.0.1:7035/
 
-#### External Perfmanager URI
+#### External Alertmanager URI
 #
-# The public URI of Perfmanager which will be used by the Perfmanager web interface to communicate with the Perfmanager REST API.
+# The public URI of Alertmanager which will be used by the Alertmanager web interface to communicate with the Alertmanager REST API.
 #
-# The external Perfmanager URI usually has to be specified, if Perfmanager is running behind a reverse proxy or load-balancer
-# and it will be used to generate URLs addressing entities in the Perfmanager REST API (see $http_bind_address).
+# The external Alertmanager URI usually has to be specified, if Alertmanager is running behind a reverse proxy or load-balancer
+# and it will be used to generate URLs addressing entities in the Alertmanager REST API (see $http_bind_address).
 #
-# When using Perfmanager Collector, this URI will be used to receive heartbeat messages and must be accessible for all collectors.
+# When using Alertmanager Collector, this URI will be used to receive heartbeat messages and must be accessible for all collectors.
 #
-# This setting can be overriden on a per-request basis with the "X-Perfmanager-Server-URL" HTTP request header.
+# This setting can be overriden on a per-request basis with the "X-Alertmanager-Server-URL" HTTP request header.
 #
 # Default: $http_publish_uri
 #http_external_uri =
@@ -139,7 +139,7 @@ http_publish_uri = http://100.81.3.27:7039/
 #### Enable CORS headers for HTTP interface
 #
 # This allows browsers to make Cross-Origin requests from any origin.
-# This is disabled for security reasons and typically only needed if running Perfmanager
+# This is disabled for security reasons and typically only needed if running Alertmanager
 # with a separate server for frontend development.
 #
 # Default: false
@@ -169,10 +169,10 @@ http_enable_cors = true
 #http_enable_tls = true
 
 # The X.509 certificate chain file in PEM format to use for securing the HTTP interface.
-#http_tls_cert_file = /path/to/perfmanager.crt
+#http_tls_cert_file = /path/to/alertmanager.crt
 
 # The PKCS#8 private key file in PEM format to use for securing the HTTP interface.
-#http_tls_key_file = /path/to/perfmanager.key
+#http_tls_key_file = /path/to/alertmanager.key
 
 # The password to unlock the private key used for securing the HTTP interface.
 #http_tls_key_password = secret
@@ -182,7 +182,7 @@ http_enable_cors = true
 # header. May be subnets, or hosts.
 #trusted_proxies = 127.0.0.1/32, 0:0:0:0:0:0:0:1/128
 
-# List of Elasticsearch hosts Perfmanager should connect to.
+# List of Elasticsearch hosts Alertmanager should connect to.
 # Need to be specified as a comma-separated list of valid URIs for the http ports of your elasticsearch nodes.
 # If one or more of your elasticsearch hosts require authentication, include the credentials in each node URI that
 # requires authentication.
@@ -219,7 +219,7 @@ http_enable_cors = true
 # Default: 20
 #elasticsearch_max_total_connections_per_route = 20
 
-# Maximum number of times Perfmanager will retry failed requests to Elasticsearch.
+# Maximum number of times Alertmanager will retry failed requests to Elasticsearch.
 #
 # Default: 2
 #elasticsearch_max_retries = 2
@@ -254,12 +254,12 @@ http_enable_cors = true
 #elasticsearch_compression_enabled = true
 
 # Enable use of "Expect: 100-continue" Header for Elasticsearch index requests.
-# If this is disabled, Perfmanager cannot properly handle HTTP 413 Request Entity Too Large errors.
+# If this is disabled, Alertmanager cannot properly handle HTTP 413 Request Entity Too Large errors.
 #
 # Default: true
 #elasticsearch_use_expect_continue = true
 
-# Perfmanager will use multiple indices to store documents in. You can configured the strategy it uses to determine
+# Alertmanager will use multiple indices to store documents in. You can configured the strategy it uses to determine
 # when to rotate the currently active write index.
 # It supports multiple rotation strategies:
 #   - "count" of messages per index, use elasticsearch_max_docs_per_index below to configure
@@ -268,9 +268,9 @@ http_enable_cors = true
 #
 # ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
 #            to your previous 1.x settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 rotation_strategy = count
 
 # (Approximate) maximum number of documents in an Elasticsearch index before a new index
@@ -279,9 +279,9 @@ rotation_strategy = count
 #
 # ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
 #            to your previous 1.x settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 elasticsearch_max_docs_per_index = 20000000
 
 # (Approximate) maximum size in bytes per Elasticsearch index on disk before a new index is being created, also see
@@ -290,9 +290,9 @@ elasticsearch_max_docs_per_index = 20000000
 #
 # ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
 #            to your previous 1.x settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 #elasticsearch_max_size_per_index = 1073741824
 
 # (Approximate) maximum time before a new Elasticsearch index is being created, also see
@@ -308,13 +308,13 @@ elasticsearch_max_docs_per_index = 20000000
 #
 # ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
 #            to your previous 1.x settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 #elasticsearch_max_time_per_index = 1d
 
-# Disable checking the version of Elasticsearch for being compatible with this Perfmanager release.
-# WARNING: Using Perfmanager with unsupported and untested versions of Elasticsearch may lead to data loss!
+# Disable checking the version of Elasticsearch for being compatible with this Alertmanager release.
+# WARNING: Using Alertmanager with unsupported and untested versions of Elasticsearch may lead to data loss!
 #elasticsearch_disable_version_check = true
 
 # Disable message retention on this node, i. e. disable Elasticsearch index rotation.
@@ -324,9 +324,9 @@ elasticsearch_max_docs_per_index = 20000000
 #
 # ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
 #            to your previous 1.x settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 elasticsearch_max_number_of_indices = 20
 
 # Decide what happens with the oldest indices when the maximum number of indices is reached.
@@ -336,41 +336,41 @@ elasticsearch_max_number_of_indices = 20
 #
 # ATTENTION: These settings have been moved to the database in 2.0. When you upgrade, make sure to set these
 #            to your previous 1.x settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 retention_strategy = delete
 
 # How many Elasticsearch shards and replicas should be used per index? Note that this only applies to newly created indices.
-# ATTENTION: These settings have been moved to the database in Perfmanager 2.2.0. When you upgrade, make sure to set these
+# ATTENTION: These settings have been moved to the database in Alertmanager 2.2.0. When you upgrade, make sure to set these
 #            to your previous settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 elasticsearch_shards = 4
 elasticsearch_replicas = 0
 
-# Prefix for all Elasticsearch indices and index aliases managed by Perfmanager.
+# Prefix for all Elasticsearch indices and index aliases managed by Alertmanager.
 #
-# ATTENTION: These settings have been moved to the database in Perfmanager 2.2.0. When you upgrade, make sure to set these
+# ATTENTION: These settings have been moved to the database in Alertmanager 2.2.0. When you upgrade, make sure to set these
 #            to your previous settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
-elasticsearch_index_prefix = perfmanager
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+elasticsearch_index_prefix = alertmanager
 
-# Name of the Elasticsearch index template used by Perfmanager to apply the mandatory index mapping.
-# Default: perfmanager-internal
+# Name of the Elasticsearch index template used by Alertmanager to apply the mandatory index mapping.
+# Default: alertmanager-internal
 #
-# ATTENTION: These settings have been moved to the database in Perfmanager 2.2.0. When you upgrade, make sure to set these
+# ATTENTION: These settings have been moved to the database in Alertmanager 2.2.0. When you upgrade, make sure to set these
 #            to your previous settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
-#elasticsearch_template_name = perfmanager-internal
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#elasticsearch_template_name = alertmanager-internal
 
 # Do you want to allow searches with leading wildcards? This can be extremely resource hungry and should only
-# be enabled with care. See also: http://docs.perfmanager.org/en/2.1/pages/queries.html
+# be enabled with care. See also: http://docs.alertmanager.org/en/2.1/pages/queries.html
 allow_leading_wildcard_searches = false
 
 # Do you want to allow searches to be highlighted? Depending on the size of your messages this can be memory hungry and
@@ -382,11 +382,11 @@ allow_highlighting = false
 # Elasticsearch documentation: https://www.elastic.co/guide/en/elasticsearch/reference/2.3/analysis.html
 # Note that this setting only takes effect on newly created indices.
 #
-# ATTENTION: These settings have been moved to the database in Perfmanager 2.2.0. When you upgrade, make sure to set these
+# ATTENTION: These settings have been moved to the database in Alertmanager 2.2.0. When you upgrade, make sure to set these
 #            to your previous settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 elasticsearch_analyzer = standard
 
 # Global timeout for index optimization (force merge) requests.
@@ -474,13 +474,13 @@ inputbuffer_wait_strategy = blocking
 # Enable the disk based message journal.
 message_journal_enabled = true
 
-# The directory which will be used to store the message journal. The directory must be exclusively used by Perfmanager and
-# must not contain any other files than the ones created by Perfmanager itself.
+# The directory which will be used to store the message journal. The directory must be exclusively used by Alertmanager and
+# must not contain any other files than the ones created by Alertmanager itself.
 #
 # ATTENTION:
 #   If you create a seperate partition for the journal files and use a file system creating directories like 'lost+found'
 #   in the root directory, you need to create a sub directory for your journal.
-#   Otherwise Perfmanager will log an error message that the journal is corrupt and Perfmanager will not start.
+#   Otherwise Alertmanager will log an error message that the journal is corrupt and Alertmanager will not start.
 message_journal_dir = data/journal
 
 # Journal hold messages before they could be written to Elasticsearch.
@@ -508,14 +508,14 @@ lb_recognition_period_seconds = 3
 # Every message is matched against the configured streams and it can happen that a stream contains rules which
 # take an unusual amount of time to run, for example if its using regular expressions that perform excessive backtracking.
 # This will impact the processing of the entire server. To keep such misbehaving stream rules from impacting other
-# streams, Perfmanager limits the execution time for each stream.
+# streams, Alertmanager limits the execution time for each stream.
 # The default values are noted below, the timeout is in milliseconds.
 # If the stream matching for one stream took longer than the timeout value, and this happened more than "max_faults" times
 # that stream is disabled and a notification is shown in the web interface.
 #stream_processing_timeout = 2000
 #stream_processing_max_faults = 3
 
-# Since 0.21 the Perfmanager server supports pluggable output modules. This means a single message can be written to multiple
+# Since 0.21 the Alertmanager server supports pluggable output modules. This means a single message can be written to multiple
 # outputs. The next setting defines the timeout for a single output module, including the default output module where all
 # messages end up.
 #
@@ -525,22 +525,22 @@ lb_recognition_period_seconds = 3
 # Time in milliseconds after which a detected stale master node is being rechecked on startup.
 #stale_master_timeout = 2000
 
-# Time in milliseconds which Perfmanager is waiting for all threads to stop on shutdown.
+# Time in milliseconds which Alertmanager is waiting for all threads to stop on shutdown.
 #shutdown_timeout = 30000
 
 # MongoDB connection string
 # See https://docs.mongodb.com/manual/reference/connection-string/ for details
-mongodb_uri = mongodb://localhost/perfmanager
+mongodb_uri = mongodb://localhost/alertmanager
 
 # Authenticate against the MongoDB server
 # '+'-signs in the username or password need to be replaced by '%2B'
-#mongodb_uri = mongodb://perfmanageruser:secret@localhost:27017/perfmanager
+#mongodb_uri = mongodb://alertmanageruser:secret@localhost:27017/alertmanager
 
 # Use a replica set instead of a single host
-#mongodb_uri = mongodb://perfmanageruser:secret@localhost:27017,localhost:27018,localhost:27019/perfmanager?replicaSet=rs01
+#mongodb_uri = mongodb://alertmanageruser:secret@localhost:27017,localhost:27018,localhost:27019/alertmanager?replicaSet=rs01
 
 # DNS Seedlist https://docs.mongodb.com/manual/reference/connection-string/#dns-seedlist-connection-format
-#mongodb_uri = mongodb+srv://server.example.org/perfmanager
+#mongodb_uri = mongodb+srv://server.example.org/alertmanager
 
 # Increase this value according to the maximum connections your MongoDB server can handle from a single client
 # if you encounter MongoDB connection problems.
@@ -560,8 +560,8 @@ mongodb_threads_allowed_to_block_multiplier = 5
 #transport_email_use_auth = true
 #transport_email_auth_username = you@example.com
 #transport_email_auth_password = secret
-#transport_email_subject_prefix = [perfmanager]
-#transport_email_from_email = perfmanager@example.com
+#transport_email_subject_prefix = [alertmanager]
+#transport_email_from_email = alertmanager@example.com
 
 # Encryption settings
 #
@@ -578,7 +578,7 @@ mongodb_threads_allowed_to_block_multiplier = 5
 
 # Specify and uncomment this if you want to include links to the stream in your stream alert mails.
 # This should define the fully qualified base url to your web interface exactly the same way as it is accessed by your users.
-#transport_email_web_interface_url = https://perfmanager.example.com
+#transport_email_web_interface_url = https://alertmanager.example.com
 
 # The default connect timeout for outgoing HTTP connections.
 # Values must be a positive duration (and between 1 and 2147483647 when converted to milliseconds).
@@ -615,21 +615,21 @@ mongodb_threads_allowed_to_block_multiplier = 5
 # on heavily used systems with large indices, but it will decrease search performance. The default is to optimize
 # cycled indices.
 #
-# ATTENTION: These settings have been moved to the database in Perfmanager 2.2.0. When you upgrade, make sure to set these
+# ATTENTION: These settings have been moved to the database in Alertmanager 2.2.0. When you upgrade, make sure to set these
 #            to your previous settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 #disable_index_optimization = true
 
 # Optimize the index down to <= index_optimization_max_num_segments. A higher number may take some load from Elasticsearch
 # on heavily used systems with large indices, but it will decrease search performance. The default is 1.
 #
-# ATTENTION: These settings have been moved to the database in Perfmanager 2.2.0. When you upgrade, make sure to set these
+# ATTENTION: These settings have been moved to the database in Alertmanager 2.2.0. When you upgrade, make sure to set these
 #            to your previous settings so they will be migrated to the database!
-#            This configuration setting is only used on the first start of Perfmanager. After that,
-#            index related settings can be changed in the Perfmanager web interface on the 'System / Indices' page.
-#            Also see http://docs.perfmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
+#            This configuration setting is only used on the first start of Alertmanager. After that,
+#            index related settings can be changed in the Alertmanager web interface on the 'System / Indices' page.
+#            Also see http://docs.alertmanager.org/en/2.3/pages/configuration/index_model.html#index-set-configuration.
 #index_optimization_max_num_segments = 1
 
 # The threshold of the garbage collection runs. If GC runs take longer than this threshold, a system notification
@@ -665,22 +665,22 @@ proxied_requests_thread_pool_size = 32
 # Default: 1
 #processing_status_journal_write_rate_threshold = 1
 
-# Configures the prefix used for perfmanager event indices
+# Configures the prefix used for alertmanager event indices
 # Default: gl-events
 #default_events_index_prefix = gl-events
 
-# Configures the prefix used for perfmanager system event indices
+# Configures the prefix used for alertmanager system event indices
 # Default: gl-system-events
 #default_system_events_index_prefix = gl-system-events
 
-# Automatically load content packs in "content_packs_dir" on the first start of Perfmanager.
+# Automatically load content packs in "content_packs_dir" on the first start of Alertmanager.
 #content_packs_loader_enabled = false
 
-# The directory which contains content packs which should be loaded on the first start of Perfmanager.
+# The directory which contains content packs which should be loaded on the first start of Alertmanager.
 #content_packs_dir = data/contentpacks
 
 # A comma-separated list of content packs (files in "content_packs_dir") which should be applied on
-# the first start of Perfmanager.
+# the first start of Alertmanager.
 # Default: empty
 #content_packs_auto_install = grok-patterns.json
 

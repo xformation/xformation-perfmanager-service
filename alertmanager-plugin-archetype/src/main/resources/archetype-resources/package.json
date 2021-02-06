@@ -1,0 +1,25 @@
+{
+  "name": "${pluginClassName}",
+  "version": "${version}",
+  "description": "",
+  
+  "scripts": {
+    "build": "webpack",
+    "lint": "eslint src",
+    "lint:path": "eslint",
+    "test": "jest"
+  },
+  "keywords": [
+    "alertmanager"
+  ],
+  "author": "${ownerName} <${ownerEmail}>",
+  "license": "MIT",
+  "eslintConfig": {
+    "extends": "alertmanager"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "alertmanager-web-plugin": "file:${serverCheckoutPath}/alertmanager-web-interface/packages/alertmanager-web-plugin"
+  }
+}

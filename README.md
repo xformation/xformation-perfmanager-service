@@ -1,2 +1,2 @@
-# xformation-perfmanager-service
+# xformation-alertmanager-service
 Backend module for Performance Manager

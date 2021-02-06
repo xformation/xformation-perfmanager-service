@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+CMD=$1
+NOHUP=${NOHUP:=$(which nohup)}
+PS=${PS:=$(which ps)}
+
+# default java
+JAVA_CMD=${JAVA_CMD:=$(which java)}
+
+get_pid() {
+    cat "${ALERTMANAGER_PID}" 2> /dev/null
+}
+
+pid_running() {
+    kill -0 $1 2> /dev/null
+}
+
+die() {
+    echo $*
+    exit 1
+}
+
+if [ -n "$JAVA_HOME" ]
+then
+    # try to use $JAVA_HOME
+    if [ -x "$JAVA_HOME"/bin/java ]
+    then
+        JAVA_CMD="$JAVA_HOME"/bin/java
+    else
+        die "$JAVA_HOME"/bin/java is not executable
+    fi
+fi
+
+# resolve links - $0 may be a softlink
+ALERTMANAGERCTL="$0"
+
+while [ -h "$ALERTMANAGERCTL" ]; do
+    ls=$(ls -ld "$ALERTMANAGERCTL")
+    link=$(expr "$ls" : '.*-> \(.*\)$')
+    if expr "$link" : '/.*' > /dev/null; then
+        ALERTMANAGERCTL="$link"
+    else
+        ALERTMANAGERCTL=$(dirname "$ALERTMANAGERCTL")/"$link"
+    fi
+done
+
+# take variables from environment if set
+ALERTMANAGERCTL_DIR=${ALERTMANAGERCTL_DIR:=$(dirname "$ALERTMANAGERCTL")}
+ALERTMANAGER_SERVER_JAR=${ALERTMANAGER_SERVER_JAR:=alertmanager.jar}
+ALERTMANAGER_CONF=${ALERTMANAGER_CONF:=/opt/alertmanager/server.conf}
+ALERTMANAGER_PID=${ALERTMANAGER_PID:=/opt/alertmanager/alertmanager.pid}
+LOG_FILE=${LOG_FILE:=log/alertmanager-server.log}
+LOG4J=${LOG4J:=}
+DEFAULT_JAVA_OPTS="-Djava.library.path=${ALERTMANAGERCTL_DIR}/../lib/sigar -Djdk.tls.acknowledgeCloseNotify=true -Xms1g -Xmx1g -XX:NewRatio=1 -server -XX:+ResizeTLAB -XX:+UseConcMarkSweepGC -XX:+CMSConcurrentMTEnabled -XX:+CMSClassUnloadingEnabled -XX:-OmitStackTraceInFastThrow"
+if $JAVA_CMD -XX:+PrintFlagsFinal 2>&1 |grep -q UseParNewGC; then
+	DEFAULT_JAVA_OPTS="${DEFAULT_JAVA_OPTS} -XX:+UseParNewGC"
+fi
+JAVA_OPTS="${JAVA_OPTS:="$DEFAULT_JAVA_OPTS"}"
+
+start() {
+    echo "Starting alertmanager-server ..."
+    cd "$ALERTMANAGERCTL_DIR/.."
+    "${NOHUP}" "${JAVA_CMD}" ${JAVA_OPTS} ${LOG4J} -jar "${ALERTMANAGER_SERVER_JAR}" server -f "${ALERTMANAGER_CONF}" -p "${ALERTMANAGER_PID}" >> "${LOG_FILE}" 2>> "${LOG_FILE}" &
+}
+
+run() {
+    echo "Running alertmanager-server ..."
+    cd "$ALERTMANAGERCTL_DIR/.."
+    exec "${JAVA_CMD}" ${JAVA_OPTS} ${LOG4J} -jar "${ALERTMANAGER_SERVER_JAR}" server -f "${ALERTMANAGER_CONF}" -p "${ALERTMANAGER_PID}"
+}
+
+stop() {
+    if [ ! -f "${ALERTMANAGER_PID}" ]; then
+      die "Not stopping. PID file not found: ${ALERTMANAGER_PID}"
+    fi
+
+    PID=$(get_pid)
+
+    echo "Stopping alertmanager-server ($PID) ..."
+    echo "Waiting for alertmanager-server to halt."
+
+    kill $PID
+
+    while "$PS" -p $PID > /dev/null; do sleep 1; done;
+    rm -f "${ALERTMANAGER_PID}"
+
+    echo "alertmanager-server stopped"
+}
+
+restart() {
+    echo "Restarting alertmanager-server ..."
+    stop
+    start
+}
+
+status() {
+    PID=$(get_pid)
+    if [ ! -z $PID ]; then
+        if pid_running $PID; then
+            echo "alertmanager-server running with PID ${PID}"
+            return 0
+        else
+            rm "${ALERTMANAGER_PID}"
+            die "Removed stale PID file ${ALERTMANAGER_PID} with ${PID}."
+        fi
+    fi
+
+    die "alertmanager-server not running"
+}
+
+case "$CMD" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart)
+        restart
+        ;;
+    status)
+        status
+        ;;
+    run)
+        run
+        ;;
+    *)
+        echo "Usage $0 {start|stop|restart|status|run}"
+esac

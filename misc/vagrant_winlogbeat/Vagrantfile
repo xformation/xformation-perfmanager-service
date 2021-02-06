@@ -16,14 +16,14 @@
 
 # Provisioning for Windows PowerShell
 $winPsProvision = <<SCRIPT
-echo "Symlinking C:\\Vagrant to C:\\perfmanager"
-cmd /c mklink /d C:\\perfmanager \\\\vboxsvr\\vagrant
+echo "Symlinking C:\\Vagrant to C:\\alertmanager"
+cmd /c mklink /d C:\\alertmanager \\\\vboxsvr\\vagrant
 
 echo "Creating Beats Shell desktop shortcut"
 $WshShell = New-Object -comObject WScript.Shell
 $Shortcut = $WshShell.CreateShortcut("$Home\\Desktop\\Beats Shell.lnk")
 $Shortcut.TargetPath = "cmd.exe"
-$Shortcut.Arguments = "/K cd /d C:\\perfmanager"
+$Shortcut.Arguments = "/K cd /d C:\\alertmanager"
 $Shortcut.Save()
 
 echo "Disable automatic updates"

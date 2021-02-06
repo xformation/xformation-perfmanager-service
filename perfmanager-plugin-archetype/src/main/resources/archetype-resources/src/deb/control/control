@@ -1,8 +1,0 @@
-Package: [[name]]
-Version: [[version]]
-Architecture: all
-Maintainer: ${ownerName} <${ownerEmail}>
-Section: web
-Priority: optional
-Depends: perfmanager-server | perfmanager-radio
-Description: [[description]]
