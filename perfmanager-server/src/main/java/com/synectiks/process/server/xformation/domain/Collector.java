@@ -1,4 +1,4 @@
-package com.synectiks.process.server.perfservice.domain;
+package com.synectiks.process.server.xformation.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;

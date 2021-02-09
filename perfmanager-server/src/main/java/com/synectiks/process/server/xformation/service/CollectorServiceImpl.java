@@ -1,4 +1,4 @@
-package com.synectiks.process.server.perfservice.service;
+package com.synectiks.process.server.xformation.service;
 
 import java.util.Collections;
 import java.util.List;
@@ -10,8 +10,8 @@ import javax.persistence.EntityTransaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.synectiks.process.server.perfservice.domain.Collector;
 import com.synectiks.process.server.shared.bindings.GuiceInjectorHolder;
+import com.synectiks.process.server.xformation.domain.Collector;
 
 public class CollectorServiceImpl {// implements CollectorService {
 

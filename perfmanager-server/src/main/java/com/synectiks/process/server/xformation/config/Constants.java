@@ -1,4 +1,4 @@
-package com.synectiks.process.server.perfservice.config;
+package com.synectiks.process.server.xformation.config;
 
 public final class Constants {
 	public static final String SYSTEM_ACCOUNT = "System Admin";

@@ -1,4 +1,4 @@
-package com.synectiks.process.server.perfservice.module;
+package com.synectiks.process.server.xformation.module;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -8,7 +8,7 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import com.synectiks.process.server.perfservice.service.CollectorServiceImpl;
+import com.synectiks.process.server.xformation.service.CollectorServiceImpl;
 
 public class PostGsJpaModule extends AbstractModule {
 	private static final Logger LOG = LoggerFactory.getLogger(PostGsJpaModule.class);

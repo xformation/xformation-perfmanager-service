@@ -2,7 +2,7 @@
  * 
  * 
  * */
-package com.synectiks.process.server.perfservice.rest;
+package com.synectiks.process.server.xformation.rest;
 
 import java.net.URI;
 import java.time.Instant;
@@ -33,9 +33,6 @@ import com.google.inject.Injector;
 import com.synectiks.process.common.security.UserContext;
 import com.synectiks.process.server.audit.AuditEventTypes;
 import com.synectiks.process.server.audit.jersey.AuditEvent;
-import com.synectiks.process.server.perfservice.config.Constants;
-import com.synectiks.process.server.perfservice.domain.Collector;
-import com.synectiks.process.server.perfservice.service.CollectorServiceImpl;
 import com.synectiks.process.server.plugin.database.ValidationException;
 import com.synectiks.process.server.plugin.streams.Stream;
 import com.synectiks.process.server.plugin.streams.StreamRule;
@@ -44,6 +41,9 @@ import com.synectiks.process.server.rest.resources.streams.requests.CreateStream
 import com.synectiks.process.server.shared.bindings.GuiceInjectorHolder;
 import com.synectiks.process.server.shared.rest.resources.RestResource;
 import com.synectiks.process.server.shared.security.RestPermissions;
+import com.synectiks.process.server.xformation.config.Constants;
+import com.synectiks.process.server.xformation.domain.Collector;
+import com.synectiks.process.server.xformation.service.CollectorServiceImpl;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

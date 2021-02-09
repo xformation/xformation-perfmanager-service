@@ -47,7 +47,6 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.name.Names;
 import com.google.inject.spi.Message;
-import com.synectiks.process.server.perfservice.module.PostGsJpaModule;
 import com.synectiks.process.server.plugin.BaseConfiguration;
 import com.synectiks.process.server.plugin.DocsHelper;
 import com.synectiks.process.server.plugin.Plugin;
@@ -67,6 +66,7 @@ import com.synectiks.process.server.shared.plugins.PluginLoader;
 import com.synectiks.process.server.shared.utilities.ExceptionUtils;
 import com.synectiks.process.server.storage.UnsupportedElasticsearchException;
 import com.synectiks.process.server.storage.versionprobe.ElasticsearchProbeException;
+import com.synectiks.process.server.xformation.module.PostGsJpaModule;
 
 import io.netty.util.internal.logging.InternalLoggerFactory;
 import io.netty.util.internal.logging.Slf4JLoggerFactory;
