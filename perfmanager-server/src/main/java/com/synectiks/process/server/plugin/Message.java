@@ -65,7 +65,7 @@ public class Message implements Messages, Indexable {
 
     /**
      * The "_id" is used as document ID to address the document in Elasticsearch.
-     * TODO: We might want to use the "gl2_message_id" for this in the future to reduce storage and avoid having
+     * TODO: We might want to use the "xfperf_message_id" for this in the future to reduce storage and avoid having
      *       basically two different message IDs. To do that we have to check if switching to a different ID format
      *       breaks anything with regard to expectations in other code and existing data in Elasticsearch.
      */
@@ -82,12 +82,12 @@ public class Message implements Messages, Indexable {
      * perfmanager is writing internal metadata to messages using this field prefix. Users must not use this prefix for
      * custom message fields.
      */
-    public static final String INTERNAL_FIELD_PREFIX = "gl2_";
+    public static final String INTERNAL_FIELD_PREFIX = "xfperf_";
 
     /**
      * Will be set to the accounted message size in bytes.
      */
-    public static final String FIELD_GL2_ACCOUNTED_MESSAGE_SIZE = "gl2_accounted_message_size";
+    public static final String FIELD_XFPERF_ACCOUNTED_MESSAGE_SIZE = "xfperf_accounted_message_size";
 
     /**
      * This is the message ID. It will be set to a {@link de.huxhorn.sulky.ulid.ULID} during processing.
@@ -102,94 +102,94 @@ public class Message implements Messages, Indexable {
      * </ul>
      *
      */
-    public static final String FIELD_GL2_MESSAGE_ID = "gl2_message_id";
+    public static final String FIELD_XFPERF_MESSAGE_ID = "xfperf_message_id";
 
     /**
      * Can be set when a message timestamp gets modified to preserve the original timestamp. (e.g. "clone_message" pipeline function)
      */
-    public static final String FIELD_GL2_ORIGINAL_TIMESTAMP = "gl2_original_timestamp";
+    public static final String FIELD_XFPERF_ORIGINAL_TIMESTAMP = "xfperf_original_timestamp";
 
     /**
      * Can be set to indicate a message processing error. (e.g. set by the pipeline interpreter when an error occurs)
      */
-    public static final String FIELD_GL2_PROCESSING_ERROR = "gl2_processing_error";
+    public static final String FIELD_XFPERF_PROCESSING_ERROR = "xfperf_processing_error";
 
     /**
      * Will be set to the message processing time after all message processors have been run.
      */
-    public static final String FIELD_GL2_PROCESSING_TIMESTAMP = "gl2_processing_timestamp";
+    public static final String FIELD_XFPERF_PROCESSING_TIMESTAMP = "xfperf_processing_timestamp";
 
     /**
      * Will be set to the message receive time at the input.
      */
-    public static final String FIELD_GL2_RECEIVE_TIMESTAMP = "gl2_receive_timestamp";
+    public static final String FIELD_XFPERF_RECEIVE_TIMESTAMP = "xfperf_receive_timestamp";
 
     /**
      * Will be set to the hostname of the source node that sent a message. (if reverse lookup is enabled)
      */
-    public static final String FIELD_GL2_REMOTE_HOSTNAME = "gl2_remote_hostname";
+    public static final String FIELD_XFPERF_REMOTE_HOSTNAME = "xfperf_remote_hostname";
 
     /**
      * Will be set to the IP address of the source node that sent a message.
      */
-    public static final String FIELD_GL2_REMOTE_IP = "gl2_remote_ip";
+    public static final String FIELD_XFPERF_REMOTE_IP = "xfperf_remote_ip";
 
     /**
      * Will be set to the socket port of the source node that sent a message.
      */
-    public static final String FIELD_GL2_REMOTE_PORT = "gl2_remote_port";
+    public static final String FIELD_XFPERF_REMOTE_PORT = "xfperf_remote_port";
 
     /**
      * Can be set to the collector ID that sent a message. (e.g. used in the beats codec)
      */
-    public static final String FIELD_GL2_SOURCE_COLLECTOR = "gl2_source_collector";
+    public static final String FIELD_XFPERF_SOURCE_COLLECTOR = "xfperf_source_collector";
 
     /**
      * @deprecated This was used in the legacy collector/sidecar system and contained the database ID of the collector input.
      */
     @Deprecated
-    public static final String FIELD_GL2_SOURCE_COLLECTOR_INPUT = "gl2_source_collector_input";
+    public static final String FIELD_XFPERF_SOURCE_COLLECTOR_INPUT = "xfperf_source_collector_input";
 
     /**
      * Will be set to the ID of the input that received the message.
      */
-    public static final String FIELD_GL2_SOURCE_INPUT = "gl2_source_input";
+    public static final String FIELD_XFPERF_SOURCE_INPUT = "xfperf_source_input";
 
     /**
      * Will be set to the ID of the node that received the message.
      */
-    public static final String FIELD_GL2_SOURCE_NODE = "gl2_source_node";
+    public static final String FIELD_XFPERF_SOURCE_NODE = "xfperf_source_node";
 
     /**
      * @deprecated This was used with the now removed radio system and contained the ID of a radio node.
      */
     @Deprecated
-    public static final String FIELD_GL2_SOURCE_RADIO = "gl2_source_radio";
+    public static final String FIELD_XFPERF_SOURCE_RADIO = "xfperf_source_radio";
 
     /**
      * @deprecated This was used with the now removed radio system and contained the input ID of a radio node.
      */
     @Deprecated
-    public static final String FIELD_GL2_SOURCE_RADIO_INPUT = "gl2_source_radio_input";
+    public static final String FIELD_XFPERF_SOURCE_RADIO_INPUT = "xfperf_source_radio_input";
 
     private static final Pattern VALID_KEY_CHARS = Pattern.compile("^[\\w\\.\\-@]*$");
     private static final char KEY_REPLACEMENT_CHAR = '_';
 
     private static final ImmutableSet<String> GRAYLOG_FIELDS = ImmutableSet.of(
-        FIELD_GL2_ACCOUNTED_MESSAGE_SIZE,
-        FIELD_GL2_ORIGINAL_TIMESTAMP,
-        FIELD_GL2_PROCESSING_ERROR,
-        FIELD_GL2_PROCESSING_TIMESTAMP,
-        FIELD_GL2_RECEIVE_TIMESTAMP,
-        FIELD_GL2_REMOTE_HOSTNAME,
-        FIELD_GL2_REMOTE_IP,
-        FIELD_GL2_REMOTE_PORT,
-        FIELD_GL2_SOURCE_COLLECTOR,
-        FIELD_GL2_SOURCE_COLLECTOR_INPUT,
-        FIELD_GL2_SOURCE_INPUT,
-        FIELD_GL2_SOURCE_NODE,
-        FIELD_GL2_SOURCE_RADIO,
-        FIELD_GL2_SOURCE_RADIO_INPUT
+        FIELD_XFPERF_ACCOUNTED_MESSAGE_SIZE,
+        FIELD_XFPERF_ORIGINAL_TIMESTAMP,
+        FIELD_XFPERF_PROCESSING_ERROR,
+        FIELD_XFPERF_PROCESSING_TIMESTAMP,
+        FIELD_XFPERF_RECEIVE_TIMESTAMP,
+        FIELD_XFPERF_REMOTE_HOSTNAME,
+        FIELD_XFPERF_REMOTE_IP,
+        FIELD_XFPERF_REMOTE_PORT,
+        FIELD_XFPERF_SOURCE_COLLECTOR,
+        FIELD_XFPERF_SOURCE_COLLECTOR_INPUT,
+        FIELD_XFPERF_SOURCE_INPUT,
+        FIELD_XFPERF_SOURCE_NODE,
+        FIELD_XFPERF_SOURCE_RADIO,
+        FIELD_XFPERF_SOURCE_RADIO_INPUT
     );
 
     private static final Set<String> ILLUMINATE_FIELDS = ImmutableSet.of(
@@ -388,7 +388,7 @@ public class Message implements Messages, Indexable {
         obj.put(FIELD_MESSAGE, getMessage());
         obj.put(FIELD_SOURCE, getSource());
         obj.put(FIELD_STREAMS, getStreamIds());
-        obj.put(FIELD_GL2_ACCOUNTED_MESSAGE_SIZE, getSize());
+        obj.put(FIELD_XFPERF_ACCOUNTED_MESSAGE_SIZE, getSize());
 
         final Object timestampValue = getField(FIELD_TIMESTAMP);
         DateTime dateTime;
@@ -771,14 +771,14 @@ public class Message implements Messages, Indexable {
     // drools seems to need the "get" prefix
     @Deprecated
     public boolean getIsSourceInetAddress() {
-        return fields.containsKey(FIELD_GL2_REMOTE_IP);
+        return fields.containsKey(FIELD_XFPERF_REMOTE_IP);
     }
 
     public InetAddress getInetAddress() {
-        if (!fields.containsKey(FIELD_GL2_REMOTE_IP)) {
+        if (!fields.containsKey(FIELD_XFPERF_REMOTE_IP)) {
             return null;
         }
-        final String ipAddr = (String) fields.get(FIELD_GL2_REMOTE_IP);
+        final String ipAddr = (String) fields.get(FIELD_XFPERF_REMOTE_IP);
         try {
             return InetAddresses.forString(ipAddr);
         } catch (IllegalArgumentException ignored) {

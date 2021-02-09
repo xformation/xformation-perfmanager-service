@@ -25,10 +25,10 @@ const ACCEPTED_PROTOCOLS = ['http:', 'https:'];
 const URLUtils = {
   parser: new UAParser(),
   qualifyUrl(url) {
-    return new URI(AppConfig.gl2ServerUrl() + url).normalizePathname().toString();
+    return new URI(AppConfig.xfperfServerUrl() + url).normalizePathname().toString();
   },
   appPrefixed(url) {
-    return URLUtils.concatURLPath(AppConfig.gl2AppPathPrefix(), url);
+    return URLUtils.concatURLPath(AppConfig.xfperfAppPathPrefix(), url);
   },
   getParsedSearch(location) {
     let search = {};

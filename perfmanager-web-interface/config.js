@@ -15,7 +15,7 @@
  * <http://www.mongodb.com/licensing/server-side-public-license>.
  */
 window.appConfig = {
-  gl2ServerUrl: '/api',
-  gl2AppPathPrefix: '',
+  xfperfServerUrl: '/api',
+  xfperfAppPathPrefix: '',
   rootTimeZone: 'Europe/Berlin',
 };

@@ -36,9 +36,9 @@ jest.mock('views/stores/CurrentQueryStore', () => ({
 }));
 
 jest.mock('util/AppConfig', () => ({
-  gl2AppPathPrefix: jest.fn(() => ''),
+  xfperfAppPathPrefix: jest.fn(() => ''),
   rootTimeZone: jest.fn(() => 'America/Chicago'),
-  gl2ServerUrl: jest.fn(() => undefined),
+  xfperfServerUrl: jest.fn(() => undefined),
 }));
 
 describe('AreaVisualization', () => {

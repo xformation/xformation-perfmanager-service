@@ -267,7 +267,7 @@ const qualifyUrls = (routes, appPrefix) => {
   return qualifiedRoutes;
 };
 
-const defaultExport = AppConfig.gl2AppPathPrefix() ? qualifyUrls(Routes, AppConfig.gl2AppPathPrefix()) : Routes;
+const defaultExport = AppConfig.xfperfAppPathPrefix() ? qualifyUrls(Routes, AppConfig.xfperfAppPathPrefix()) : Routes;
 
 defaultExport.unqualified = Routes;
 
@@ -313,7 +313,7 @@ defaultExport.pluginRoute = (routeKey, throwError = true) => {
     pluginRoutes[key] = pluginRoute.path;
   });
 
-  const route = (AppConfig.gl2AppPathPrefix() ? qualifyUrls(pluginRoutes, AppConfig.gl2AppPathPrefix()) : pluginRoutes)[routeKey];
+  const route = (AppConfig.xfperfAppPathPrefix() ? qualifyUrls(pluginRoutes, AppConfig.xfperfAppPathPrefix()) : pluginRoutes)[routeKey];
 
   if (!route && throwError) {
     throw new Error(`Could not find plugin route '${routeKey}'.`);

@@ -48,7 +48,7 @@ public class V20180212165000_AddDefaultCollectors extends Migration {
                 "# Needed for perfmanager\n" +
                 "fields_under_root: true\n" +
                 "fields.collector_node_id: ${sidecar.nodeName}\n" +
-                "fields.gl2_source_collector: ${sidecar.nodeId}\n\n";
+                "fields.xfperf_source_collector: ${sidecar.nodeId}\n\n";
 
         ensureCollector(
                 "filebeat",
@@ -144,7 +144,7 @@ public class V20180212165000_AddDefaultCollectors extends Migration {
                         "\tOutputType  GELF_TCP\n" +
                         "\t<Exec>\n" +
                         "\t  # These fields are needed for perfmanager\n" +
-                        "\t  $gl2_source_collector = '${sidecar.nodeId}';\n" +
+                        "\t  $xfperf_source_collector = '${sidecar.nodeId}';\n" +
                         "\t  $collector_node_id = '${sidecar.nodeName}';\n" +
                         "\t</Exec>\n" +
                         "</Output>\n" +
@@ -226,7 +226,7 @@ public class V20180212165000_AddDefaultCollectors extends Migration {
                         "\tOutputType  GELF_TCP\n" +
                         "\t<Exec>\n" +
                         "\t  # These fields are needed for perfmanager\n" +
-                        "\t  $gl2_source_collector = '${sidecar.nodeId}';\n" +
+                        "\t  $xfperf_source_collector = '${sidecar.nodeId}';\n" +
                         "\t  $collector_node_id = '${sidecar.nodeName}';\n" +
                         "\t</Exec>\n" +
                         "</Output>\n" +

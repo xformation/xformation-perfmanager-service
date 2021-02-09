@@ -1,5 +1,5 @@
 window.appConfig = {
-  gl2ServerUrl: '${serverUri}',
-  gl2AppPathPrefix: '${appPathPrefix}',
+  xfperfServerUrl: '${serverUri}',
+  xfperfAppPathPrefix: '${appPathPrefix}',
   rootTimeZone: '${rootTimeZone}',
 };

@@ -12,9 +12,9 @@ public class GraylogSchemaFields {
 
     public static final String FIELD_TIMESTAMP = "timestamp";
 
-    public static final String FIELD_ILLUMINATE_EVENT_CATEGORY = "gl2_event_category";
-    public static final String FIELD_ILLUMINATE_EVENT_SUBCATEGORY = "gl2_event_subcategory";
-    public static final String FIELD_ILLUMINATE_EVENT_TYPE = "gl2_event_type";
-    public static final String FIELD_ILLUMINATE_EVENT_TYPE_CODE = "gl2_event_type_code";
-    public static final String FIELD_ILLUMINATE_TAGS = "gl2_tags";
+    public static final String FIELD_ILLUMINATE_EVENT_CATEGORY = "xfperf_event_category";
+    public static final String FIELD_ILLUMINATE_EVENT_SUBCATEGORY = "xfperf_event_subcategory";
+    public static final String FIELD_ILLUMINATE_EVENT_TYPE = "xfperf_event_type";
+    public static final String FIELD_ILLUMINATE_EVENT_TYPE_CODE = "xfperf_event_type_code";
+    public static final String FIELD_ILLUMINATE_TAGS = "xfperf_tags";
 }

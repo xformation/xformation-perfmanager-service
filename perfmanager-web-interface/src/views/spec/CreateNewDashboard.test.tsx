@@ -68,8 +68,8 @@ declare global {
 }
 
 jest.mock('util/AppConfig', () => ({
-  gl2ServerUrl: jest.fn(() => global.api_url),
-  gl2AppPathPrefix: jest.fn(() => ''),
+  xfperfServerUrl: jest.fn(() => global.api_url),
+  xfperfAppPathPrefix: jest.fn(() => ''),
   gl2DevMode: jest.fn(() => false),
   isFeatureEnabled: jest.fn(() => true),
 }));

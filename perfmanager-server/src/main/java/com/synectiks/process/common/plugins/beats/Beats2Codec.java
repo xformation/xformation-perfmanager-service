@@ -86,16 +86,16 @@ public class Beats2Codec extends AbstractCodec {
         gelfMessage.addField("beats_type", beatsType);
 
         // This field should be stored without a prefix
-        final String gl2SourceCollector = event.path(Message.FIELD_GL2_SOURCE_COLLECTOR).asText();
-        if (!gl2SourceCollector.isEmpty()) {
-            gelfMessage.addField(Message.FIELD_GL2_SOURCE_COLLECTOR, gl2SourceCollector);
+        final String xfperfSourceCollector = event.path(Message.FIELD_XFPERF_SOURCE_COLLECTOR).asText();
+        if (!xfperfSourceCollector.isEmpty()) {
+            gelfMessage.addField(Message.FIELD_XFPERF_SOURCE_COLLECTOR, xfperfSourceCollector);
         }
 
         // Remove fields that should not be duplicated with a prefix
         if (event.isObject()) {
             ObjectNode onode = (ObjectNode) event;
             onode.remove("message");
-            onode.remove(Message.FIELD_GL2_SOURCE_COLLECTOR);
+            onode.remove(Message.FIELD_XFPERF_SOURCE_COLLECTOR);
         }
         addFlattened(gelfMessage, rootPath, event);
         return gelfMessage;

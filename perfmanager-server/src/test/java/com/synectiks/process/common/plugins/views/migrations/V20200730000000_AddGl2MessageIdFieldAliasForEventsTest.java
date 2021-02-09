@@ -61,7 +61,7 @@ class V20200730000000_AddGl2MessageIdFieldAliasForEventsTest {
 
         this.sut.upgrade();
 
-        verify(elasticsearchAdapter, never()).addGl2MessageIdFieldAlias(any());
+        verify(elasticsearchAdapter, never()).addXfPerfMessageIdFieldAlias(any());
     }
 
     @Test
@@ -71,7 +71,7 @@ class V20200730000000_AddGl2MessageIdFieldAliasForEventsTest {
         this.sut.upgrade();
 
         verify(elasticsearchAdapter)
-                .addGl2MessageIdFieldAlias(ImmutableSet.of("events-prefix", "system-events-prefix"));
+                .addXfPerfMessageIdFieldAlias(ImmutableSet.of("events-prefix", "system-events-prefix"));
     }
 
     @ParameterizedTest
@@ -81,7 +81,7 @@ class V20200730000000_AddGl2MessageIdFieldAliasForEventsTest {
 
         sut.upgrade();
 
-        verify(elasticsearchAdapter).addGl2MessageIdFieldAlias(any());
+        verify(elasticsearchAdapter).addXfPerfMessageIdFieldAlias(any());
     }
 
     @ParameterizedTest
@@ -91,7 +91,7 @@ class V20200730000000_AddGl2MessageIdFieldAliasForEventsTest {
 
         sut.upgrade();
 
-        verify(elasticsearchAdapter, never()).addGl2MessageIdFieldAlias(any());
+        verify(elasticsearchAdapter, never()).addXfPerfMessageIdFieldAlias(any());
     }
 
     @ParameterizedTest
