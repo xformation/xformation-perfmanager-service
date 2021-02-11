@@ -8,7 +8,6 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.persist.PersistService;
 import com.google.inject.persist.jpa.JpaPersistModule;
-import com.synectiks.process.server.xformation.service.CollectorServiceImpl;
 
 public class PostGsJpaModule extends AbstractModule {
 	private static final Logger LOG = LoggerFactory.getLogger(PostGsJpaModule.class);
@@ -17,7 +16,7 @@ public class PostGsJpaModule extends AbstractModule {
     protected void configure() {
         install(new JpaPersistModule("postGsPu"));
         bind(JPAInitializer.class).asEagerSingleton();
-        bind(CollectorServiceImpl.class);
+//        bind(CollectorServiceImpl.class);
         
     }
 
